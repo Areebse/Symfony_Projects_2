@@ -3,3 +3,27 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+#Login Controller
+app_login:
+    path: /login
+    controller: App\Controller\LoginController::login
+
+app_logout:
+    path: /logout
+    controller: App\Controller\LoginController::logout
+
+# Registration Controller
+app_register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+
+# TodoController
+app_todo:
+    path: /todo
+    controller: App\Controller\TodoController::index
+
+# UserController
+app_user:
+    path: /user/{user}
+    controller: App\Controller\UserController::index
