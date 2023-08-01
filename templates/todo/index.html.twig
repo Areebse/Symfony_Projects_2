@@ -10,8 +10,23 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
+    <h1>Todo List ✅</h1>
+    {% if todo_list | length <= 0 %}
+    <p>You have no todos right now</p>
+    {% else %}
+        <form action="/deleteTodo" method="post">
+    {% for todo in todo_list %}
+    <p>{{ todo.getName() }}</p>
+        <input value="{{ todo.getId() }}">
+        <button>Delete</button>
+    {% endfor %}
+        </form>
+    {% endif %}
+    <div>
+        <form action="/createTodoView" method="get">
+    <button>Add todo</button>
+        </form>
+    </div>
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ '/var/www/html/PHPCodePractice/SymfonyProjects/demo_project/src/Controller/TodoController.php'|file_link(0) }}">src/Controller/TodoController.php</a></code></li>
