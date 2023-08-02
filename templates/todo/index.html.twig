@@ -4,33 +4,50 @@
 
 {% block body %}
 
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
 
-<div class="example-wrapper">
-    <h1>Todo List ✅</h1>
-    {% if todo_list | length <= 0 %}
-    <p>You have no todos right now</p>
-    {% else %}
-        <form action="/deleteTodo" method="post">
-    {% for todo in todo_list %}
-    <p>{{ todo.getName() }}</p>
-        <input value="{{ todo.getId() }}">
-        <button>Delete</button>
-    {% endfor %}
-        </form>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="container w-25 m-auto">
+        {% if todo_list | length <= 0 %}
+
+            <h3>You have no todos right now</h3>
+        {% else %}
+
+            {% for todo in todo_list %}
+                <form action="/deleteTodo" method="post">
+                    <p>{{ todo.getName() }}</p>
+                    {% if(todo.isStatus is same as(true)) %}
+                        <p>Completed</p>
+                    {% else %}
+                        <p>Incomplete</p>
+                    {% endif %}
+                    <input type="hidden" name="todoId" value="{{ todo.getId() }}">
+                    <button class="btn btn-lg btn-primary w-100 py-2">Delete</button>
+                </form>
+                {% if(todo.isStatus is not same as(true)) %}
+                    <form action="/updateTodo">
+                        <input type="hidden" name="todoId" value="{{ todo.getId() }}">
+                        <button class="btn btn-lg btn-primary w-100 py-2">Mark as completed</button>
+                    </form>
+                {% endif %}
+            {% endfor %}
+
     {% endif %}
-    <div>
-        <form action="/createTodoView" method="get">
-    <button>Add todo</button>
-        </form>
+        <div class="container w-50 m-auto">
+            <form action="/createTodo" method="get">
+                <button class="btn btn-lg btn-primary w-100 py-2">Add todo</button>
+            </form>
+        </div>
     </div>
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/PHPCodePractice/SymfonyProjects/demo_project/src/Controller/TodoController.php'|file_link(0) }}">src/Controller/TodoController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/PHPCodePractice/SymfonyProjects/demo_project/templates/todo/index.html.twig'|file_link(0) }}">templates/todo/index.html.twig</a></code></li>
-    </ul>
-</div>
 {% endblock %}

@@ -1,20 +1,22 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\Todo;
 use App\Form\NewTodoType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+
 
 class TodoController extends AbstractController
 {
 //    #[Route('/todo', name: 'app_todo')]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $todoList = $entityManager->getRepository(Todo::class)->findAll();
+        $userId = $this->getUser()->getId();
+        $todoList = $entityManager->getRepository(Todo::class)->findBy(array('userId' => $userId));
 /////////
 //        $user = $this->getUser()->getEmail();
 //        We can get user details using this
@@ -24,14 +26,12 @@ class TodoController extends AbstractController
         ]);
     }
 
-    #[Route('/createTodoView', name: 'create_todo_view')]
-    public function viewCreateTodo(Request $request, EntityManagerInterface $entityManager): Response
+//    #[Route('/createTodo', name: 'create_todo')]
+    public function createTodo(Request $request, EntityManagerInterface $entityManager): Response
     {
         $todo = new Todo();
-        $form = $this->createForm(NewTodoType::class,$todo);
+        $form = $this->createForm(NewTodoType::class, $todo);
         $form->handleRequest($request);
-//        dump($form);
-//        exit();
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $userId = $this->getUser();
@@ -42,25 +42,38 @@ class TodoController extends AbstractController
 
             $entityManager->persist($todo);
             $entityManager->flush();
-            // do anything else you need here, like send an email
-//        dump($user);
             $url = $this->generateUrl('app_todo');
             return $this->redirect($url);
         }
-       return $this->render('/todo/createTodo.html.twig',['todoForm'=>$form]);
+        return $this->render('/todo/createTodo.html.twig', ['todoForm' => $form]);
 
     }
 
-    public function add(){
+//    #[Route('/deleteTodo', name: 'delete_todo')]
+    public function deleteTodo(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $todoId = $request->get("todoId");
+        $todo = $entityManager->getRepository(Todo::class)->findOneBy(array('id' => $todoId));
 
+        $entityManager->remove($todo);
+        $entityManager->flush();
+        $url = $this->generateUrl('app_todo');
+        return $this->redirect($url);
     }
-    #[Route('/deleteTodo', name: 'delete_todo')]
-    public function delete(Request $request, EntityManagerInterface $entityManager){
-      dump($request);
-      exit();
-    }
 
-    public function update(){
-
+//    #[Route('/updateTodo', name: 'update_todo')]
+    public function updateTodo(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $todoId = $request->get("todoId");
+        $todo = $entityManager->getRepository(Todo::class)->findOneBy(array('id' => $todoId));
+        if (!$todo) {
+            throw $this->createNotFoundException(
+                'No todo found for id ' . $todoId
+            );
+        }
+        $todo->setStatus(true);
+        $entityManager->flush();
+        $url = $this->generateUrl('app_todo');
+        return $this->redirect($url);
     }
 }

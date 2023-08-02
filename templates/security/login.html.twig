@@ -3,29 +3,60 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <main class="form-signin w-50 m-auto">
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        <div class="container">
+            <div class="col-md-5 mb-1 mb-md-1" id=main-header-div>
+                <label class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" fill="currentColor"
+                         class="bi bi-check2-circle" viewBox="0 0 16 16">
+                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                    </svg>
+                    <h1>Todo List</h1>
+                </label>
+            </div>
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+                <label for="inputEmail">Email</label>
+                <div class="form-floating">
+
+                    <input type="email" value="{{ last_username }}" name="email" id="floatingInput" class="form-control"
+                           placeholder="Email"
+                           autocomplete="email" required autofocus>
+                </div>
+                <label for="inputPassword">Password</label>
+                <div class="form-floating">
+
+
+                    <input type="password" name="password" id="floatingPassword" class="form-control"
+                           autocomplete="current-password" placeholder="Password"
+                           required>
+                </div>
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+                <br>
+                <div class="w-25 m-auto">
+                    <button class="btn btn-lg btn-primary w-100 py-2" type="submit">
+                        Sign in
+                    </button>
+                </div>
+
+            </form>
+            <br>
+            <form action="/register">
+                <div class="w-25 m-auto">
+                    <button class="btn btn-lg btn-primary w-100 py-2" type="submit">
+                        Register
+                    </button>
+                </div>
+
+            </form>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+    </main>
 {% endblock %}

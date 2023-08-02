@@ -23,6 +23,18 @@ app_todo:
     path: /todo
     controller: App\Controller\TodoController::index
 
+create_todo:
+    path: /createTodo
+    controller: App\Controller\TodoController::createTodo
+
+delete_todo:
+    path: /deleteTodo
+    controller: App\Controller\TodoController::deleteTodo
+
+update_todo:
+    path: /updateTodo
+    controller: App\Controller\TodoController::updateTodo
+
 # UserController
 app_user:
     path: /user/{user}

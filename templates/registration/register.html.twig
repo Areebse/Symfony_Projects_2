@@ -4,19 +4,51 @@
 {% endblock %}
 
 {% block body %}
-	<div style="text-align:center">
-		<h1>Register</h1>
-		<div>
-			<div class="input-form" style="display:flex; align-items:center; justify-content:center;">
-				{{ form_errors(registrationForm) }}
 
-				{{ form_start(registrationForm) }}
-				{{ form_row(registrationForm.email ) }}
-				{{ form_row(registrationForm.plainPassword, {
-                 label: 'Password'
-                }) }}
 
-				<button type="submit" class="btn">Register</button>
-				{{ form_end(registrationForm) }}
-			</div>
-		{% endblock %}
+    <div>
+        <main class="form-signin w-50 m-auto">
+
+
+            <div class="container">
+
+                {{ form_errors(registrationForm) }}
+                <div class="col-md-5 mb-1 mb-md-1" id=main-header-div>
+                    <label class="d-inline-flex link-body-emphasis text-decoration-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" fill="currentColor"
+                             class="bi bi-check2-circle" viewBox="0 0 16 16">
+                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                        </svg>
+                        <h1>Todo List</h1>
+                    </label>
+                </div>
+                <h1 class="h3 mb-3 fw-normal">Please register</h1>
+                {{ form_start(registrationForm) }}
+                <div class="form-floating">
+                    {{ form_row(registrationForm.email ,{autofocus:true,required:true}) }}
+                </div>
+                <div class="form-floating">
+                    {{ form_row(registrationForm.plainPassword, {
+                        label: 'Password',autofocus:true,required:true
+                    }) }}
+                </div>
+
+                <br>
+                <div class="w-25 m-auto">
+                    <button type="submit" class="btn btn-lg btn-primary w-100 py-2">Register</button>
+                </div>
+                {{ form_end(registrationForm) }}
+                <br>
+                <form action="/login">
+
+                    <div class="w-25 m-auto">
+                        <button type="submit" class="btn btn-lg btn-primary w-100 py-2">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+{% endblock %}

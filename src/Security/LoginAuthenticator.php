@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class LoginAutheticatorAuthenticator extends AbstractLoginFormAuthenticator
+class LoginAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
@@ -34,7 +34,7 @@ class LoginAutheticatorAuthenticator extends AbstractLoginFormAuthenticator
             new UserBadge($email),
             new PasswordCredentials($request->request->get('password', '')),
             [
-                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),            ]
+                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),]
         );
 ///////////////////////
 //        $passport =  new Passport(
@@ -46,7 +46,7 @@ class LoginAutheticatorAuthenticator extends AbstractLoginFormAuthenticator
 //        dump($passport);
 //        exit();
 //        $passport returns
-//        LoginAutheticatorAuthenticator.php on line:
+//        LoginAuthenticator.php on line:
 //Symfony\Component\Security\Http\Authenticator\Passport\Passport {#290 ▼
 //        #user: null
 //        -badges: array:3 [▼
@@ -85,7 +85,7 @@ class LoginAutheticatorAuthenticator extends AbstractLoginFormAuthenticator
 
         // For example:
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        return new RedirectResponse($this->urlGenerator->generate('app_todo',['user'=>$request->request->get('email')]));
+        return new RedirectResponse($this->urlGenerator->generate('app_todo', ['user' => $request->request->get('email')]));
     }
 
     protected function getLoginUrl(Request $request): string
