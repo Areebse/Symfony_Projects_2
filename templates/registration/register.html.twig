@@ -6,49 +6,51 @@
 {% block body %}
 
 
-    <div>
-        <main class="form-signin w-50 m-auto">
+
+        <main style="width: 35vw; height: 70vh; border: #B0413E solid 1px;  margin-left: 30%; margin-top: 3%; margin-bottom: 2%; border-radius: 15%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 5px 5px   #93c5fd">
 
 
-            <div class="container">
+            <div class="container w-50">
 
                 {{ form_errors(registrationForm) }}
-                <div class="col-md-5 mb-1 mb-md-1" id=main-header-div>
+                <div class="col-md-5 mb-1 mb-md-1" id=main-header-div  style="margin-left: 30%">
                     <label class="d-inline-flex link-body-emphasis text-decoration-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" fill="currentColor"
                              class="bi bi-check2-circle" viewBox="0 0 16 16">
                             <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
                             <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
                         </svg>
+
                         <h1>Todo List</h1>
+
                     </label>
                 </div>
                 <h1 class="h3 mb-3 fw-normal">Please register</h1>
                 {{ form_start(registrationForm) }}
                 <div class="form-floating">
-                    {{ form_row(registrationForm.email ,{autofocus:true,required:true}) }}
+                    {{ form_row(registrationForm.email ,{required:true}) }}
                 </div>
                 <div class="form-floating">
                     {{ form_row(registrationForm.plainPassword, {
-                        label: 'Password',autofocus:true,required:true
+                        label: 'Password',required:true
                     }) }}
                 </div>
 
                 <br>
-                <div class="w-25 m-auto">
-                    <button type="submit" class="btn btn-lg btn-primary w-100 py-2">Register</button>
+                <div class="w-35 m-auto" style="display: flex; justify-content: center">
+                    <button type="submit" class="btn btn-outline-primary py-2">Register</button>
                 </div>
                 {{ form_end(registrationForm) }}
                 <br>
                 <form action="/login">
 
-                    <div class="w-25 m-auto">
-                        <button type="submit" class="btn btn-lg btn-primary w-100 py-2">
+                    <div class="w-35 m-auto" style="display: flex; justify-content: center">
+                        <button type="submit" class="btn btn-outline-primary py-2">
                             Login
                         </button>
                     </div>
                 </form>
             </div>
         </main>
-    </div>
+
 {% endblock %}

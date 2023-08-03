@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends AbstractController
 {
-//    #[Route('/user/{user}', name: 'app_user')]
     public function index(Request $request, $user): Response
     {
         return $this->render('user/index.html.twig', [

@@ -21,7 +21,7 @@ class Todo
     private ?User $userId = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $status = null;
+    private ?string $status = "Incomplete";
 
     public function getId(): ?int
     {
@@ -52,15 +52,14 @@ class Todo
         return $this;
     }
 
-    public function isStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?bool $status): static
+    public function setStatus(string $status):static
     {
         $this->status = $status;
+        return  $this;
+    }
 
-        return $this;
+    public function getStatus(): ?string
+    {
+        return $this->status;
     }
 }

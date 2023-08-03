@@ -35,6 +35,10 @@ update_todo:
     path: /updateTodo
     controller: App\Controller\TodoController::updateTodo
 
+view_edit_todo:
+        path: /viewEditTodo
+        controller: App\Controller\TodoController::viewEditTodo
+
 # UserController
 app_user:
     path: /user/{user}
