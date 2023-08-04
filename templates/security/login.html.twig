@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/styles/loginStyles.css') }}">
+{% endblock %}
 
 {% block body %}
-    <main style="width: 35vw; height: 70vh; border: #B0413E solid 1px;  margin-left: 30%; margin-top: 3%; margin-bottom: 2%; border-radius: 15%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 5px 5px   #93c5fd">
-
-        <div class="container w-50">
-            <div class="col-md-5 mb-1 mb-md-1" id=main-header-div  style="margin-left: 25%">
+    <main id="main-div">
+    <div class="container w-50">
+            <div class="col-md-5 mb-1 mb-md-1" id="todo-icon-div">
                 <label class="d-inline-flex link-body-emphasis text-decoration-none">
                     <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" fill="currentColor"
                          class="bi bi-check2-circle" viewBox="0 0 16 16">
@@ -16,32 +19,37 @@
                     <h1>Todo List</h1>
                 </label>
             </div>
-            <form method="post">
+            <form id="login-form" method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
 
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-                <label for="inputEmail">Email</label>
+                <span id="email-error" class="error"></span>
+
                 <div class="form-floating">
 
-                    <input type="email" value="{{ last_username }}" name="email" class="form-control"
+                    <input type="email" value="{{ last_username }}" id="email" name="email" class="form-control"
                            placeholder="Email"
-                           autocomplete="email" required>
+                           autocomplete="email">
+                    <label for="inputEmail">Email</label>
                 </div>
+
+
                 <label for="inputPassword">Password</label>
                 <div class="form-floating">
 
 
-                    <input type="password" name="password" class="form-control"
+                    <input type="password" name="password" id="password" class="form-control"
                            autocomplete="current-password" placeholder="Password"
-                           required>
+                    >
+                    <span id="password-error" class="error"></span>
                 </div>
                 <input type="hidden" name="_csrf_token"
                        value="{{ csrf_token('authenticate') }}"
                 >
                 <br>
-                <div class="w-35 m-auto" style="display: flex; justify-content: center">
+                <div class="w-35 m-auto" id="button-div">
                     <button class="btn btn-outline-primary py-2" type="submit">
                         Sign in
                     </button>
@@ -50,7 +58,7 @@
             </form>
             <br>
             <form action="/register">
-                <div class="w-35 m-auto" style="display: flex; justify-content: center">
+                <div class="w-35 m-auto" id="button-div">
                     <button class="btn btn-outline-primary py-2" type="submit">
                         Register
                     </button>
@@ -59,4 +67,5 @@
             </form>
         </div>
     </main>
+    <script src="{{ asset('assets/js/login.js') }}"></script>
 {% endblock %}

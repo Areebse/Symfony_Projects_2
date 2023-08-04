@@ -1,0 +1,27 @@
+#main-div {
+    height: 100vh;
+}
+
+#edit-todo-div {
+    width: 20vw;
+    height: 50vh;
+    border: #B0413E solid 1px;
+    margin-left: 40%;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    border-radius: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 5px 5px #93c5fd
+}
+
+#edit-todo-heading {
+    color: #B0413E;
+}
+
+#edit-todo-button-div {
+    margin-top: 35%
+}

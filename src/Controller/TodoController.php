@@ -12,18 +12,31 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TodoController extends AbstractController
 {
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $todo = new Todo();
         $userId = $this->getUser()->getId();
         $todoList = $entityManager->getRepository(Todo::class)->findBy(array('userId' => $userId));
+        $todo = new Todo();
         $todoForm = $this->createForm(NewTodoType::class, $todo, [
             'action'=>$this->generateUrl('create_todo')
         ]);
-        return $this->render('todo/index.html.twig', [
-            'todo_list' => $todoList,
-           'todoForm' => $todoForm
+        $todoForm->handleRequest($request);
+        if($todoForm->isSubmitted()&&$todoForm->isValid()){
+            $userId = $this->getUser();
+            $todo->setName(
+                $todoForm->get('name')->getData()
+            );
+            $todo->setUserId($userId);
+
+            $entityManager->persist($todo);
+            $entityManager->flush();
+
+        }
+        return $this->render('todo/index.html.twig',[
+            'todo_list'=>$todoList,
+            'todoForm'=>$todoForm
         ]);
+
     }
     public function createTodo(Request $request, EntityManagerInterface $entityManager): Response
     {

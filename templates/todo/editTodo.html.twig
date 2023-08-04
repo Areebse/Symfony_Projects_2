@@ -1,20 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Todo App{% endblock %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="./assets/styles/editTodoStyles.css">
+{% endblock %}
 {% block body %}
 
-    <div style="height: 100vh; ">
-        <div style="width: 20vw; height: 30vh; border: #B0413E solid 1px;  margin-left: 40%; margin-top: 3%; margin-bottom: 2%; border-radius: 15%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 5px 5px   #93c5fd">
-            <h3 style="color: #B0413E">Edit Todo</h3>
+    <div id="main-div">
+        <div id="edit-todo-div">
+            <h3 id="edit-todo-heading">Edit Todo</h3>
             {{ form_errors(editTodoForm) }}
             {{ form_start(editTodoForm) }}
-            {{ form_row(editTodoForm.name) }}
-            {{ form_row(editTodoForm.status) }}
+            {{ form_widget(editTodoForm.name) }}
+            {{ form_errors(editTodoForm.name) }}
+            <br>
+            {{ form_widget(editTodoForm.status) }}
             <input type="hidden" name="todoId" value="{{ todoId }}">
             <br>
-            <div style="margin-left: 33%">
-                <button type="submit" class="btn btn-primary py-2">Add Todo</button>
+            <div id="edit-todo-button-div">
+                <button type="submit" class="btn btn-primary py-2">Edit</button>
             </div>
             {{ form_end(editTodoForm) }}
         </div>

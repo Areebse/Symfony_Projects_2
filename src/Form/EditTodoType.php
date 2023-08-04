@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class EditTodoType extends AbstractType
 {
@@ -17,10 +18,12 @@ class EditTodoType extends AbstractType
             ->add('name', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control'
-                ],
-                'label'=>false
+                ]
             ])
             ->add('status', ChoiceType::class,[
+                'attr'=>[
+                    'class'=>'btn btn-outline-primary dropdown-toggle'
+                ],
                 'choices'=>[
                     'Incomplete'=>'Incomplete',
                     'InProgress'=>'InProgress',
