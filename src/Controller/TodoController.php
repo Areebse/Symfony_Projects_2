@@ -57,25 +57,12 @@ class TodoController extends AbstractController
         $todo->setName($request->get("todoName"));
         $todo->setStatus($request->get("todoStatus"));
 
-        $form = $this->createForm(EditTodoType::class, $todo,[
-            'action'=>$this->generateUrl('update_todo')
-        ]);
-        $form->handleRequest($request);
-        return $this->render('todo/editTodo.html.twig', [
-            'todo' => $todo,
-            'todoId'=>$request->get('todoId'),
-            'editTodoForm' => $form
-        ]);
-    }
-    public function updateTodo(Request $request, EntityManagerInterface $entityManager):Response{
-
-        $todo = new Todo();
         $form = $this->createForm(EditTodoType::class, $todo);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $todoId = $request->get("todoId");
 
-            $checkTodo= $entityManager->getRepository(Todo::class)->findOneBy(array('id' => $todoId));
+            $checkTodo = $entityManager->getRepository(Todo::class)->findOneBy(array('id' => $todoId));
             if (!$checkTodo) {
                 throw $this->createNotFoundException(
                     'No todo found for id ' . $checkTodo
@@ -83,10 +70,17 @@ class TodoController extends AbstractController
             }
 
             $checkTodo->setStatus($form->getData()->getStatus());
-            $checkTodo->setName($form->getData()->getName() );
+            $checkTodo->setName($form->getData()->getName());
             $entityManager->flush();
+
+            $url = $this->generateUrl('app_todo');
+            return $this->redirect($url);
+
         }
-        $url = $this->generateUrl('app_todo');
-        return $this->redirect($url);
-}
+        return $this->render('todo/edit_todo.html.twig', [
+            'todo' => $todo,
+            'todoId' => $request->get('todoId'),
+            'editTodoForm' => $form
+        ]);
+    }
 }

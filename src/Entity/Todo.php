@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TodoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TodoRepository::class)]
 class Todo
@@ -14,6 +15,12 @@ class Todo
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Regex(
+        pattern: '/^[^!@#$%^&*()_+{}\[\]:;"\'<>,.?\/\\\\|`~-]+$/',
+        message: 'Todo cannot contain special characters',
+        match: true,
+    )]
     private ?string $name = null;
 
     #[ORM\ManyToOne]

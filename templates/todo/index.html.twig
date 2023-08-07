@@ -42,31 +42,31 @@
                         <tbody>
 
                         {% for todo in todo_list|sort %}
-                    <tr>
-                        <th scope="row">{{ todo.getId() }}</th>
-                        <td>{{ todo.getName() }}</td>
-                        <td>{{ todo.getStatus() }}</td>
-                        <td>
-                            <form action="/deleteTodo">
+                            <tr>
+                                <th scope="row">{{ todo.getId() }}</th>
+                                <td>{{ todo.getName() }}</td>
+                                <td>{{ todo.getStatus() }}</td>
+                                <td>
+                                    <form action="/deleteTodo">
 
-                                <input type="hidden" name="todoId" value="{{ todo.getId() }}">
-                            <button class="btn btn-outline-danger py-2" >Delete</button>
-                            </form>
-                            <br>
-                            <form action="/viewEditTodo">
-                                <input type="hidden" name="todoName" value="{{ todo.getName() }}">
-                                <input type="hidden" name="todoStatus" value="{{ todo.getStatus() }}">
-                                <input type="hidden" name="todoId" value="{{ todo.getId() }}">
-                            <button class="btn btn-outline-primary py-2" >Edit</button>
-                            </form>
-                        </td>
-                    </tr>
-            {% endfor %}
-                </tbody>
-            </table>
+                                        <input type="hidden" name="todoId" value="{{ todo.getId() }}">
+                                        <button class="btn btn-outline-danger py-2">Delete</button>
+                                    </form>
+                                    <br>
+                                    <form action="/viewEditTodo">
+                                        <input type="hidden" name="todoName" value="{{ todo.getName() }}">
+                                        <input type="hidden" name="todoStatus" value="{{ todo.getStatus() }}">
+                                        <input type="hidden" name="todoId" value="{{ todo.getId() }}">
+                                        <button class="btn btn-outline-primary py-2">Edit</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
 
-    {% endif %}
-        </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

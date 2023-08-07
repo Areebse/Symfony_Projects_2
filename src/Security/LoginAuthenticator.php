@@ -24,6 +24,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
     }
+
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email', '');
@@ -36,6 +37,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
                 new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),]
         );
     }
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
