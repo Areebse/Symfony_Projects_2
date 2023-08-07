@@ -8,11 +8,17 @@
 {% block body %}
     <div id="main-div">
         <div id="create-new-todo">
-            <h3 id="create-new-todo-heading">Create New Todo</h3>
             {{ form_errors(todoForm) }}
+            <h3 id="create-new-todo-heading">Create New Todo</h3>
             {{ form_start(todoForm) }}
-            {{ form_widget(todoForm.name) }}
-            {{ form_errors(todoForm.name) }}
+            <div class="form-floating">
+                {{ form_widget(todoForm.name) }}
+                {{ form_label(todoForm.name) }}
+                {{ form_errors(todoForm.name) }}
+            </div>
+
+            {#            {{ form_widget(todoForm.name) }} #}
+            {#            {{ form_errors(todoForm.name) }} #}
             <br>
             <div id="create-button">
                 <button type="submit" class="btn btn-primary py-2">Add Todo</button>
@@ -34,11 +40,11 @@
                             <th scope="col">Description</th>
                             <th scope="col">Status</th>
                             <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-            {% for todo in todo_list %}
+                        {% for todo in todo_list|sort %}
                     <tr>
                         <th scope="row">{{ todo.getId() }}</th>
                         <td>{{ todo.getName() }}</td>

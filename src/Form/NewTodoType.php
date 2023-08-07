@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
 class NewTodoType extends AbstractType
@@ -18,14 +19,17 @@ class NewTodoType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'required'=>false,
-                'constraints'=>[
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a name',
+                    ]),
                     new Regex([
-                        'pattern'=>'/\d/',
-                        'match'=> false,
-                        'message'=>'Your name cannot contain a number',
+                        'pattern' => '/^[^!@#$%^&*()_+{}\[\]:;"\'<>,.?\/\\\\|`~-]+$/',
+                        'match' => true,
+                        'message' => 'Todo cannot contain special characters',
                     ])
-                ]
+                ],
+                'required' => false,
             ]);
     }
 

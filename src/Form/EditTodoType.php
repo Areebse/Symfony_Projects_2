@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
 class EditTodoType extends AbstractType
@@ -18,7 +19,17 @@ class EditTodoType extends AbstractType
             ->add('name', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a name',
+                    ]),
+                    new Regex([
+                        'pattern' => '/^[^!@#$%^&*()_+{}\[\]:;"\'<>,.?\/\\\\|`~-]+$/',
+                        'match' => true,
+                        'message' => 'Todo cannot contain special characters',
+                    ])
+                ],
             ])
             ->add('status', ChoiceType::class,[
                 'attr'=>[

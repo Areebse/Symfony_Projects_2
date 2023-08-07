@@ -5,7 +5,7 @@ document.getElementById("login-form").onsubmit = function (event) {
     let password = document.getElementById("password").value;
     let emailError = document.getElementById("email-error");
     let passwordError = document.getElementById("password-error");
-let valid = true;
+    let valid = true;
     let regex = /^\w+@\w+\.\w+$/;
 
     emailError.innerHTML = "";
@@ -39,7 +39,6 @@ let valid = true;
     if (valid) {
         this.submit();
     }
-
 
 
 }

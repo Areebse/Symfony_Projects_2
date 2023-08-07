@@ -14,14 +14,10 @@ class TodoController extends AbstractController
 {
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $userId = $this->getUser()->getId();
-        $todoList = $entityManager->getRepository(Todo::class)->findBy(array('userId' => $userId));
         $todo = new Todo();
-        $todoForm = $this->createForm(NewTodoType::class, $todo, [
-            'action'=>$this->generateUrl('create_todo')
-        ]);
+        $todoForm = $this->createForm(NewTodoType::class, $todo);
         $todoForm->handleRequest($request);
-        if($todoForm->isSubmitted()&&$todoForm->isValid()){
+        if ($todoForm->isSubmitted() && $todoForm->isValid()) {
             $userId = $this->getUser();
             $todo->setName(
                 $todoForm->get('name')->getData()
@@ -31,34 +27,18 @@ class TodoController extends AbstractController
             $entityManager->persist($todo);
             $entityManager->flush();
 
+            unset($todo);
+            unset($todoForm);
+            $todo = new Todo();
+            $todoForm = $this->createForm(NewTodoType::class, $todo);
+
         }
-        return $this->render('todo/index.html.twig',[
-            'todo_list'=>$todoList,
-            'todoForm'=>$todoForm
+        $userId = $this->getUser()->getId();
+        $todoList = $entityManager->getRepository(Todo::class)->findBy(array('userId' => $userId));
+        return $this->render('todo/index.html.twig', [
+            'todo_list' => $todoList,
+            'todoForm' => $todoForm
         ]);
-
-    }
-    public function createTodo(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $todo = new Todo();
-        $form = $this->createForm(NewTodoType::class, $todo);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $userId = $this->getUser();
-            $todo->setName(
-                $form->get('name')->getData()
-            );
-            $todo->setUserId($userId);
-
-            $entityManager->persist($todo);
-            $entityManager->flush();
-        }
-       else{
-           echo "Form not submitted";
-
-       }
-        $url = $this->generateUrl('app_todo');
-        return $this->redirect($url);
 
     }
     public function deleteTodo(Request $request, EntityManagerInterface $entityManager): Response

@@ -10,60 +10,60 @@
 
 
 
-        <main id="main-div">
-            <div class="container w-50">
+    <main id="main-div">
+        <div class="container w-50">
 
-                {{ form_errors(registrationForm) }}
-                <div class="col-md-5 mb-1 mb-md-1" id="todo-icon-div">
-                    <label class="d-inline-flex link-body-emphasis text-decoration-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" fill="currentColor"
-                             class="bi bi-check2-circle" viewBox="0 0 16 16">
-                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
-                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
-                        </svg>
+            {{ form_errors(registrationForm) }}
+            <div class="col-md-5 mb-1 mb-md-1" id="todo-icon-div">
+                <label class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" fill="currentColor"
+                         class="bi bi-check2-circle" viewBox="0 0 16 16">
+                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                    </svg>
 
-                        <h1>Todo List</h1>
+                    <h1>Todo List</h1>
 
-                    </label>
-                </div>
-                <h1 class="h3 mb-3 fw-normal">Please register</h1>
-                {{ form_start(registrationForm) }}
-
-                <div class="form-floating">
-                    {{ form_widget(registrationForm.email) }}
-                    {{ form_label(registrationForm.email) }}
-                    {{ form_errors(registrationForm.email) }}
-                </div>
-                <div class="form-floating">
-                    {{ form_widget(registrationForm.plainPassword) }}
-                    {{ form_label(registrationForm.plainPassword) }}
-                    {{ form_errors(registrationForm.plainPassword) }}
-                </div>
-                <div class="form-floating">
-                    {{ form_widget(registrationForm.name) }}
-                    {{ form_label(registrationForm.name) }}
-                    {{ form_errors(registrationForm.name) }}
-                </div>
-                <div class="form-floating">
-                    {{ form_widget(registrationForm.age) }}
-                    {{ form_label(registrationForm.age) }}
-                    {{ form_errors(registrationForm.age) }}
-                </div>
-                <br>
-                <div class="w-35 m-auto" id="button-div">
-                    <button type="submit" class="btn btn-outline-primary py-2">Register</button>
-                </div>
-                {{ form_end(registrationForm) }}
-                <br>
-                <form action="/login">
-
-                    <div class="w-35 m-auto" id="button-div">
-                        <button type="submit" class="btn btn-outline-primary py-2">
-                            Login
-                        </button>
-                    </div>
-                </form>
+                </label>
             </div>
-        </main>
+            <h1 class="h3 mb-3 fw-normal">Please register</h1>
+            {{ form_start(registrationForm) }}
+
+            <div class="form-floating">
+                {{ form_widget(registrationForm.email) }}
+                {{ form_label(registrationForm.email) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+            <div class="form-floating">
+                {{ form_widget(registrationForm.plainPassword) }}
+                {{ form_label(registrationForm.plainPassword) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+            <div class="form-floating">
+                {{ form_widget(registrationForm.name) }}
+                {{ form_label(registrationForm.name) }}
+                {{ form_errors(registrationForm.name) }}
+            </div>
+            <div class="form-floating">
+                {{ form_widget(registrationForm.age) }}
+                {{ form_label(registrationForm.age) }}
+                {{ form_errors(registrationForm.age) }}
+            </div>
+            <br>
+            <div class="w-35 m-auto" id="button-div">
+                <button type="submit" class="btn btn-outline-primary py-2">Register</button>
+            </div>
+            {{ form_end(registrationForm) }}
+            <br>
+            <form action="/login">
+
+                <div class="w-35 m-auto" id="button-div">
+                    <button type="submit" class="btn btn-outline-primary py-2">
+                        Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
 
 {% endblock %}

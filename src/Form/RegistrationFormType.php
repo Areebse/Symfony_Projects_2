@@ -13,7 +13,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use function Sodium\add;
 
 class RegistrationFormType extends AbstractType
 {
@@ -24,14 +23,14 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'required'=>false,
-                'constraints'=>[
+                'required' => false,
+                'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter an email',
                     ]),
                     new Email([
-                        'mode'=>'strict',
-                        'message'=>'Please enter a valid email address'
+                        'mode' => 'strict',
+                        'message' => 'Please enter a valid email address'
                     ])
                 ]
             ])
@@ -43,7 +42,7 @@ class RegistrationFormType extends AbstractType
                     'autocomplete' => 'new-password',
                     'class' => 'form-control'
                 ],
-                'required'=>false,
+                'required' => false,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -56,22 +55,23 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-        ->add('name', TextType::class,[
-            'attr' => ['class' => 'form-control'
-            ],
-            'constraints'=>[
-                new NotBlank([
-                    'message' => 'Please enter a name',
-                ]),
-            ],
-            'required'=>false
-    ])
-            ->add('age', NumberType::class,[
+            ->add('name', TextType::class, [
                 'attr' => ['class' => 'form-control'
                 ],
-                'required'=>false
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a name',
+                    ]),
+                ],
+                'required' => false
+            ])
+            ->add('age', NumberType::class, [
+                'attr' => ['class' => 'form-control'
+                ],
+                'required' => false
             ]);
     }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
